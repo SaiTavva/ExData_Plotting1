@@ -1,0 +1,10 @@
+library(readr)
+library(lubridate)
+file <- "household_power_consumption.txt"
+power <- read.csv( file = file ,sep=";")
+power[,1]<-dmy(power[,1])
+power[,3]<-as.numeric(power[,3])
+power<-subset(power,Date>="2007-02-01" & Date<="2007-02-02" )
+hist(power[,3],col="red",xlab="Global Active Power (kilowatts)",main="Global Active Power")
+dev.copy(png,file="plot1.png")
+dev.off()

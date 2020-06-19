@@ -1,0 +1,11 @@
+library(readr)
+library(lubridate)
+file <- "household_power_consumption.txt"
+power <- read.csv( file = file ,sep=";")
+power[,1]<-dmy(power[,1])
+power<-subset(power,Date>="2007-02-01" & Date<="2007-02-02" )
+power[,1]<-wday(power[,1],label=TRUE)
+plot(ts(power[,3],start=5,end=7,frequency=1440),xlab="",ylab="Global Active Power (kilowatts)",xaxt="n")
+axis(1,at=seq_len(nrow(power)),label=nrow(power$Date))
+dev.copy(png,file="plot2.png")
+dev.off()
